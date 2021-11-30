@@ -8,6 +8,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.subsystems.Chassis;
+import frc.robot.OperatorInterface;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -17,10 +19,14 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
+
+public static final boolean enableChassis = true;
+
+public static boolean chassisEnabled = false;
+
+public Chassis chassis = new Chassis();
+public OperatorInterface oi = new OperatorInterface();
+
   @Override
   public void robotInit() {
 
@@ -51,7 +57,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
-
+    initialize();
   }
 
   /**
@@ -59,7 +65,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
+    if(chassisEnabled && enableChassis){
+      chassis.main(oi);
+    }
   }
 
   /**
@@ -92,5 +100,12 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     
+  }
+
+  public void initialize(){
+    if(chassisEnabled){
+      chassis.innit();
+      chassisEnabled = true;
+    }
   }
 }
