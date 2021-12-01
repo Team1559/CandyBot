@@ -16,6 +16,6 @@ public class Chassis{
 
         }
         public void main(OperatorInterface oi){
-            dd.arcadeDrive(oi.pilot.getRawAxis(0),oi.pilot.getRawAxis(2));
+            dd.arcadeDrive(oi.pilot.getRawAxis(1),oi.pilot.getRawAxis(4));
         }
 }

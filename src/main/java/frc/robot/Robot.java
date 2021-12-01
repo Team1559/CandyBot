@@ -103,7 +103,7 @@ public OperatorInterface oi = new OperatorInterface();
   }
 
   public void initialize(){
-    if(chassisEnabled){
+    if(enableChassis){
       chassis.innit();
       chassisEnabled = true;
     }
