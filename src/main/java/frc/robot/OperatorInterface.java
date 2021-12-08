@@ -42,12 +42,20 @@ public class OperatorInterface {
             return (Math.pow(pilot.getRawAxis(1), 2));
     }
 
-    public double getPilotZ() {
+    public double getPilotZRotate() {
         //gets the z axis on the ps4 controller (rotation)
         if((pilot.getRawAxis(4))/(Math.abs(pilot.getRawAxis(4))) == 1) {
             return (Math.pow(pilot.getRawAxis(4), 2));
         }
             return (-1)*(Math.pow(pilot.getRawAxis(4), 2));
+    }
+
+    public double getPilotZ() {
+        //gets the z axis on the ps4 controller (rotation)
+        if((pilot.getRawAxis(2))/(Math.abs(pilot.getRawAxis(2))) == 1) {
+            return (Math.pow(pilot.getRawAxis(2), 2));
+        }
+            return (-1)*(Math.pow(pilot.getRawAxis(2), 2));
     }
 
     public DTButton getCopilotButton(int num) {
@@ -58,6 +66,10 @@ public class OperatorInterface {
     public boolean coButtonIsPressed(int button) {
         //this will tell us if a button is pressed on the copilot box and return true
         return copilot.getRawButton(button);
+    }
+
+    public boolean pilotButtonIsPressed(int button) {
+        return pilot.getRawButton(button);
     }
 
     public double getCopilotAxis(int num) {

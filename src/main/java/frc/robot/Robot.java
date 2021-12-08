@@ -8,6 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.*;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -16,14 +19,20 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
+  private OperatorInterface oi;
+  private TalonSRX rightMotor;
+  private TalonSRX leftMotor;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
   public void robotInit() {
-
+    oi = new OperatorInterface();
+    leftMotor = new TalonSRX(3);
+    rightMotor = new TalonSRX(7);
   }
 
 
@@ -59,7 +68,27 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    /*if(Math.abs(oi.getPilotY()) >= .2)
+    leftMotor.set(oi.getPilotY());
+    if(Math.abs(oi.getPilotZ()) >= .2)
+    rightMotor.set(oi.getPilotZ()); */
 
+    if(oi.pilotButtonIsPressed(7) && Math.abs(oi.getPilotX()) <= 0.1){
+      rightMotor.set(ControlMode.PercentOutput,1);
+      leftMotor.set(ControlMode.PercentOutput,1);
+    }
+    else if(oi.pilotButtonIsPressed(7) && oi.getPilotX() >= 0.1){
+      rightMotor.set(ControlMode.PercentOutput,1-oi.getPilotX());
+      leftMotor.set(ControlMode.PercentOutput,1);
+    }
+    else if(oi.pilotButtonIsPressed(7) && oi.getPilotX() <= -0.1){
+      rightMotor.set(ControlMode.PercentOutput,1);
+      leftMotor.set(ControlMode.PercentOutput,1+oi.getPilotX());
+    }
+    else{
+      rightMotor.set(ControlMode.PercentOutput,0);
+      leftMotor.set(ControlMode.PercentOutput,0);
+    }
   }
 
   /**
