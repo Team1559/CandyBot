@@ -12,7 +12,7 @@ public class Chassis{
     //TalonSRX lm;
         public void innit(){
             WPI_TalonSRX leftMotor = new WPI_TalonSRX(1);
-            WPI_TalonSRX rightMotor = new WPI_TalonSRX(7);
+            WPI_TalonSRX rightMotor = new WPI_TalonSRX(3);
             //lm = new TalonSRX(1);
             dd = new DifferentialDrive(leftMotor, rightMotor);
 
