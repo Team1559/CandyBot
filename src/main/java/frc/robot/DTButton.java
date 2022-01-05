@@ -1,13 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-//Mike, this one's for you to handle
 
 public class DTButton {
-
-    private boolean old, current;
+    private boolean  old;
+    private boolean  current;
     private Joystick stick;
-    private int button;
+    private int      button;
 
     public DTButton(Joystick stick, int button) {
         this.stick = stick;
@@ -15,25 +14,25 @@ public class DTButton {
     }
 
     public void update() {
-        update(stick.getRawButton(button));
+        this.update(this.stick.getRawButton(this.button));
     }
 
     public void update(boolean b) {
-        old = current;
-        current = b;
+        this.old = this.current;
+        this.current = b;
     }
 
     /**
      * @return if button is being held down
      */
     public boolean isDown() {
-        return current;
+        return this.current;
     }
 
     /**
      * @return Falling edge of button press
      */
     public boolean isReleased() {
-        return old && !current;
+        return this.old && !this.current;
     }
-} 
+}
