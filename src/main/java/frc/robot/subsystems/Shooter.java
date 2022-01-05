@@ -8,18 +8,18 @@ import frc.robot.Buttons;
 import frc.robot.OperatorInterface;
 
 public class Shooter {
-    OperatorInterface operatorInterface;
-    boolean           dPadPressed;
+    private OperatorInterface operatorInterface;
+    private boolean           dPadPressed;
 
-    TalonSRX shooterMoter;
-    double   shooterSpeed;
-    boolean  shooterEnabled;
+    private TalonSRX shooterMoter;
+    private double   shooterSpeed;
+    private boolean  shooterEnabled;
 
-    TalonSRX hopperMotor;
-    boolean  hopperEnabled;
+    private TalonSRX hopperMotor;
+    private boolean  hopperEnabled;
 
-    boolean isKilled;
-    long    killTime;
+    private boolean isKilled;
+    private long    killTime;
 
     public void init(OperatorInterface operatorInterface) {
         this.operatorInterface = operatorInterface;
@@ -50,7 +50,7 @@ public class Shooter {
         }
 
         // if (this.operatorInterface.pilot.getRawButtonPressed(Buttons.A)) {
-        //     this.hopperEnabled = !this.hopperEnabled;
+        // this.hopperEnabled = !this.hopperEnabled;
         // }
 
         // change shooter speed
@@ -80,7 +80,7 @@ public class Shooter {
     public void setMotors() {
         if (this.hopperEnabled) {
             this.hopperMotor.set(ControlMode.PercentOutput, 0.25D);
-            this.shooterEnabled = true;
+            this.hopperEnabled = true;
         } else {
             this.hopperMotor.set(ControlMode.PercentOutput, 0D);
         }
