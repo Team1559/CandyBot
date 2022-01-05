@@ -39,9 +39,8 @@ public class Robot extends TimedRobot {
         // controller
         this.operatorInterface = new OperatorInterface();
 
-        // this.chassis = new Chassis();
-        this.shooter = new Shooter();
-        this.shooter.init(this.operatorInterface);
+        this.chassis = new Chassis(this.operatorInterface);
+        this.shooter = new Shooter(this.operatorInterface);
     }
 
     /**
@@ -89,6 +88,8 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         this.shooter.main();
+
+        //this.chassis.main();
     }
 
     /** This function is called once when the robot is disabled. */
