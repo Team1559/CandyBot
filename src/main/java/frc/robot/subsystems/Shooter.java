@@ -11,11 +11,11 @@ public class Shooter {
     private OperatorInterface operatorInterface;
     private boolean           dPadPressed;
 
-    private TalonSRX shooterMoter;
+    // private TalonSRX shooterMoter;
     private double   shooterSpeed;
     private boolean  shooterEnabled;
 
-    private TalonSRX hopperMotor;
+    // private TalonSRX hopperMotor;
     private boolean  hopperEnabled;
 
     private boolean isKilled;
@@ -25,11 +25,11 @@ public class Shooter {
         this.operatorInterface = operatorInterface;
         this.dPadPressed = false;
 
-        this.shooterMoter = new WPI_TalonSRX(3);
+        // this.shooterMoter = new WPI_TalonSRX(3);
         this.shooterEnabled = false;
         this.shooterSpeed = 0D;
 
-        this.hopperMotor = new WPI_TalonSRX(1);
+        // this.hopperMotor = new WPI_TalonSRX(1);
 
         this.isKilled = false;
         this.killTime = 0L;
@@ -58,12 +58,13 @@ public class Shooter {
             int dPad = this.operatorInterface.dpadCopilot();
             if (dPad == -1) {
                 this.dPadPressed = false;
-            } else if (this.dPadPressed) {
+            } else if (!this.dPadPressed) {
                 if (dPad == Buttons.DPAD_UP) {
                     this.shooterSpeed += 0.1D;
                 } else if (dPad == Buttons.DPAD_DOWN) {
                     this.shooterSpeed -= 0.1D;
                 }
+                this.dPadPressed = true;
             }
         }
     }
@@ -78,17 +79,19 @@ public class Shooter {
     }
 
     public void setMotors() {
-        if (this.hopperEnabled) {
-            this.hopperMotor.set(ControlMode.PercentOutput, 0.25D);
-            this.hopperEnabled = true;
-        } else {
-            this.hopperMotor.set(ControlMode.PercentOutput, 0D);
-        }
+        // if (this.hopperEnabled) {
+        //     this.hopperMotor.set(ControlMode.PercentOutput, 0.25D);
+        //     this.hopperEnabled = true;
+        // } else {
+        //     this.hopperMotor.set(ControlMode.PercentOutput, 0D);
+        // }
 
-        if (this.shooterEnabled) {
-            this.shooterMoter.set(ControlMode.PercentOutput, this.shooterSpeed);
-        } else {
-            this.shooterMoter.set(ControlMode.PercentOutput, 0D);
-        }
+        // if (this.shooterEnabled) {
+        //     this.shooterMoter.set(ControlMode.PercentOutput, this.shooterSpeed);
+        // } else {
+        //     this.shooterMoter.set(ControlMode.PercentOutput, 0D);
+        // }
+
+        System.out.println("Shooter speed:" + this.shooterSpeed);
     }
 }
