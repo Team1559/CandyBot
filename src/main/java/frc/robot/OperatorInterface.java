@@ -9,8 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-import static frc.robot.Constants.squareKeepSign;
-
 public class OperatorInterface {
     public Joystick   pilot;
     public Joystick   copilot;
@@ -35,42 +33,42 @@ public class OperatorInterface {
      * Gets the left joystick x-value on the pilot controller
      */
     public double pilotLeftStickX() {
-        return squareKeepSign(this.pilot.getRawAxis(Buttons.LEFT_JOYSTICK_X));
+        return this.pilot.getRawAxis(Buttons.LEFT_JOYSTICK_X);
     }
 
     /**
      * Gets the left joystick y-value on the pilot controller
      */
     public double pilotLeftStickY() {
-        return squareKeepSign(this.pilot.getRawAxis(Buttons.LEFT_JOYSTICK_Y));
+        return this.pilot.getRawAxis(Buttons.LEFT_JOYSTICK_Y);
     }
 
     /**
      * Gets the right joystick x-value on the pilot controller
      */
     public double pilotRightStickX() {
-        return squareKeepSign(this.pilot.getRawAxis(Buttons.RIGHT_JOYSTICK_X));
+        return this.pilot.getRawAxis(Buttons.RIGHT_JOYSTICK_X);
     }
 
     /**
      * Gets the right joystick y-value on the pilot controller
      */
     public double pilotRightStickY() {
-        return squareKeepSign(this.pilot.getRawAxis(Buttons.RIGHT_JOYSTICK_Y));
+        return this.pilot.getRawAxis(Buttons.RIGHT_JOYSTICK_Y);
     }
 
     /**
      * Gets the value of the left trigger on the pilot controller
      */
     public double pilotLeftTrigger() {
-        return squareKeepSign(this.pilot.getRawAxis(Buttons.LEFT_TRIGGER));
+        return this.pilot.getRawAxis(Buttons.LEFT_TRIGGER);
     }
 
     /**
      * Gets the value of the right trigger on the pilot controller
      */
     public double pilotRightTrigger() {
-        return squareKeepSign(this.pilot.getRawAxis(Buttons.RIGHT_TRIGGER));
+        return this.pilot.getRawAxis(Buttons.RIGHT_TRIGGER);
     }
 
     /**

@@ -21,7 +21,6 @@ public class Robot extends TimedRobot {
     private Chassis           chassis;
     private Shooter           shooter;
 
-
     /**
      * Default constructor for Robot
      * <p>
@@ -39,6 +38,10 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // controller
         this.operatorInterface = new OperatorInterface();
+
+        // this.chassis = new Chassis();
+        this.shooter = new Shooter();
+        this.shooter.init(this.operatorInterface);
     }
 
     /**
@@ -85,7 +88,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-
+        this.shooter.main();
     }
 
     /** This function is called once when the robot is disabled. */

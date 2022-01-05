@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.OperatorInterface;
 
 public class Chassis {
-    DifferentialDrive differential;
+    private DifferentialDrive differential;
 
     public void init() {
         WPI_TalonSRX leftMotor = new WPI_TalonSRX(1);
