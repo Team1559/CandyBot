@@ -69,13 +69,13 @@ public class Shooter {
             }
         }
     }
-
+    
     private void checkValues() {
         // ensure shooter speed in range
         if (this.shooterSpeed > 1D) {
             this.shooterSpeed = 1D;
-        } else if (this.shooterSpeed < 0D) {
-            this.shooterSpeed = 0D;
+        } else if (this.shooterSpeed < 0.1D) {
+            this.shooterSpeed = 0.1D;
         }
 
         // ensure hopper and shooter are running in sync
