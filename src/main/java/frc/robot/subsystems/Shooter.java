@@ -69,7 +69,6 @@ public class Shooter {
             }
         }
     }
-    
     private void checkValues() {
         // ensure shooter speed in range
         if (this.shooterSpeed > 1D) {
