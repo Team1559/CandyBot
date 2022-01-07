@@ -3,8 +3,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class DTButton {
-    private boolean  old;
-    private boolean  current;
+    private boolean old;
+    private boolean current;
     private Joystick stick;
     private int button;
 
