@@ -6,33 +6,33 @@ public class DTButton {
     private boolean  old;
     private boolean  current;
     private Joystick stick;
-    private int      button;
+    private int button;
 
-    public DTButton(Joystick stick, int button) {
-        this.stick = stick;
-        this.button = button;
+    public DTButton(Joystick stick, int brr) {
+        stick = stick;
+        button = brr;
     }
 
     public void update() {
-        this.update(this.stick.getRawButton(this.button));
+        update(stick.getRawButton(button));
     }
 
     public void update(boolean b) {
-        this.old = this.current;
-        this.current = b;
+        old = current;
+        current = b;
     }
 
     /**
      * @return if button is being held down
      */
     public boolean isDown() {
-        return this.current;
+        return current;
     }
 
     /**
      * @return Falling edge of button press
      */
     public boolean isReleased() {
-        return this.old && !this.current;
+        return old && !current;
     }
 }

@@ -18,8 +18,8 @@ import frc.robot.subsystems.Shooter;
 public class Robot extends TimedRobot {
     // controller
     private OperatorInterface operatorInterface;
-    private Chassis           chassis;
-    private Shooter           shooter;
+    private Chassis chassis;
+    private Shooter shooter;
 
     /**
      * Default constructor for Robot
@@ -37,10 +37,10 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         // controller
-        this.operatorInterface = new OperatorInterface();
+        operatorInterface = new OperatorInterface();
 
-        this.chassis = new Chassis(this.operatorInterface);
-        this.shooter = new Shooter(this.operatorInterface);
+        chassis = new Chassis(operatorInterface);
+        shooter = new Shooter(operatorInterface);
     }
 
     /**
@@ -87,9 +87,9 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        this.shooter.main();
+        shooter.main();
 
-        //this.chassis.main();
+        //chassis.main();
     }
 
     /** This function is called once when the robot is disabled. */

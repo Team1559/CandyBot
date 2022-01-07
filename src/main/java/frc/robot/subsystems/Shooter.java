@@ -10,106 +10,106 @@ public class Shooter {
     private static final double HOPPER_SPEED = 0.15D;
 
     private final OperatorInterface operatorInterface;
-    private boolean                 dPadPressed;
+    private boolean dPadPressed;
 
     private WPI_TalonSRX shooterMoter;
-    private double       shooterSpeed;
-    private boolean      shooterEnabled;
+    private double shooterSpeed;
+    private boolean shooterEnabled;
 
     private WPI_TalonSRX hopperMotor;
-    private boolean      hopperEnabled;
+    private boolean hopperEnabled;
 
     private boolean isRunning;
-    private long    lastKillTime;
+    private long lastKillTime;
 
-    public Shooter(OperatorInterface operatorInterface) {
-        this.operatorInterface = operatorInterface;
-        this.dPadPressed = false;
+    public Shooter(OperatorInterface oi) {
+        operatorInterface = oi;
+        dPadPressed = false;
 
-        this.shooterMoter = new WPI_TalonSRX(2);
-        this.shooterEnabled = false;
-        this.shooterSpeed = 0D;
+        shooterMoter = new WPI_TalonSRX(2);
+        shooterEnabled = false;
+        shooterSpeed = 0D;
 
-        this.hopperMotor = new WPI_TalonSRX(9);
+        hopperMotor = new WPI_TalonSRX(9);
 
-        this.isRunning = true;
-        this.lastKillTime = 0L;
+        isRunning = true;
+        lastKillTime = 0L;
     }
 
     public void main() {
-        this.readButtons();
+        readButtons();
 
-        this.checkValues();
+        checkValues();
 
-        this.setMotors();
+        setMotors();
     }
 
     private void readButtons() {
         // enable toggles
-        if (this.operatorInterface.pilot.getRawButtonPressed(Buttons.B)) {
-            this.shooterEnabled = !this.shooterEnabled;
+        if (operatorInterface.pilot.getRawButtonPressed(Buttons.B)) {
+            shooterEnabled = !shooterEnabled;
         }
 
-        if (this.operatorInterface.pilot.getRawButtonPressed(Buttons.A)) {
-            this.hopperEnabled = !this.hopperEnabled;
+        if (operatorInterface.pilot.getRawButtonPressed(Buttons.A)) {
+            hopperEnabled = !hopperEnabled;
         }
 
         // change shooter speed
-        if (this.shooterEnabled) {
-            int dPad = this.operatorInterface.dpadPilot();
+        if (shooterEnabled) {
+            int dPad = operatorInterface.dpadPilot();
             if (dPad == -1) {
-                this.dPadPressed = false;
-            } else if (!this.dPadPressed) {
+                dPadPressed = false;
+            } else if (!dPadPressed) {
                 if (dPad == Buttons.DPAD_UP) {
-                    this.shooterSpeed += 0.1D;
+                    shooterSpeed += 0.1D;
                 } else if (dPad == Buttons.DPAD_DOWN) {
-                    this.shooterSpeed -= 0.1D;
+                    shooterSpeed -= 0.1D;
                 }
-                this.dPadPressed = true;
+                dPadPressed = true;
             }
         }
     }
     private void checkValues() {
         // ensure shooter speed in range
-        if (this.shooterSpeed > 1D) {
-            this.shooterSpeed = 1D;
-        } else if (this.shooterSpeed < 0.1D) {
-            this.shooterSpeed = 0.1D;
+        if (shooterSpeed > 1D) {
+            shooterSpeed = 1D;
+        } else if (shooterSpeed < 0.1D) {
+            shooterSpeed = 0.1D;
         }
 
         // ensure hopper and shooter are running in sync
-        if (!this.shooterEnabled) {
-            this.hopperEnabled = false;
-        } else if (this.hopperEnabled) {
-            this.shooterEnabled = true;
+        if (!shooterEnabled) {
+            hopperEnabled = false;
+        } else if (hopperEnabled) {
+            shooterEnabled = true;
         }
     }
 
     private void setMotors() {
-        if (this.hopperEnabled) {
-            this.hopperMotor.set(ControlMode.PercentOutput, HOPPER_SPEED);
-            this.hopperEnabled = true;
+        if (hopperEnabled) {
+            hopperMotor.set(ControlMode.PercentOutput, HOPPER_SPEED);
+            hopperEnabled = true;
         } else {
-            this.hopperMotor.set(ControlMode.PercentOutput, 0D);
+            hopperMotor.set(ControlMode.PercentOutput, 0D);
         }
 
-        if (this.shooterEnabled) {
-            this.shooterMoter.set(ControlMode.PercentOutput, this.shooterSpeed);
+        if (shooterEnabled) {
+            shooterMoter.set(ControlMode.PercentOutput, shooterSpeed);
         } else {
-            this.shooterMoter.set(ControlMode.PercentOutput, 0D);
+            shooterMoter.set(ControlMode.PercentOutput, 0D);
         }
 
-        System.out.println("Shooter speed:" + this.shooterSpeed);
-        System.out.println("Auger speed:  " + this.hopperEnabled);
+        System.out.println("Shooter speed:" + shooterSpeed);
+        System.out.println("Auger speed:  " + hopperEnabled);
     }
 
     private void setKill(boolean kill) {
-        if (kill && this.isRunning) {
-            this.isRunning = false;
-            this.lastKillTime = System.currentTimeMillis();
+        if (kill && isRunning) {
+            isRunning = false;
+            lastKillTime = System.currentTimeMillis();
         } else {
-            this.isRunning = true;
-            this.lastKillTime = 0L;
+            isRunning = true;
+            lastKillTime = 0L;
         }
     }
 }
