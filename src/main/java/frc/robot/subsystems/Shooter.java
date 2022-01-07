@@ -26,11 +26,11 @@ public class Shooter {
         this.operatorInterface = operatorInterface;
         this.dPadPressed = false;
 
-        this.shooterMoter = new WPI_TalonSRX(3);
+        this.shooterMoter = new WPI_TalonSRX(2);
         this.shooterEnabled = false;
         this.shooterSpeed = 0D;
 
-        this.hopperMotor = new WPI_TalonSRX(1);
+        this.hopperMotor = new WPI_TalonSRX(9);
 
         this.isRunning = true;
         this.lastKillTime = 0L;
