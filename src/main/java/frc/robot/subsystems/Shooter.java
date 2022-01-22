@@ -3,24 +3,23 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import frc.robot.Buttons;
 import frc.robot.OperatorInterface;
 
 public class Shooter {
     private static final double HOPPER_SPEED = 0.15D;
 
     private final OperatorInterface operatorInterface;
-    private boolean dPadPressed;
+    private boolean                 dPadPressed;
 
     private WPI_TalonSRX shooterMoter;
-    private double shooterSpeed;
-    private boolean shooterEnabled;
+    private double       shooterSpeed;
+    private boolean      shooterEnabled;
 
     private WPI_TalonSRX hopperMotor;
-    private boolean hopperEnabled;
+    private boolean      hopperEnabled;
 
     private boolean isRunning;
-    private long lastKillTime;
+    private long    lastKillTime;
 
     public Shooter(OperatorInterface oi) {
         operatorInterface = oi;
@@ -46,29 +45,30 @@ public class Shooter {
 
     private void readButtons() {
         // enable toggles
-        if (operatorInterface.pilot.getRawButtonPressed(Buttons.B)) {
+        if (operatorInterface.pilot.getBButtonPressed()) {
             shooterEnabled = !shooterEnabled;
         }
 
-        if (operatorInterface.pilot.getRawButtonPressed(Buttons.A)) {
+        if (operatorInterface.pilot.getAButtonPressed()) {
             hopperEnabled = !hopperEnabled;
         }
 
         // change shooter speed
         if (shooterEnabled) {
-            int dPad = operatorInterface.dpadPilot();
+            int dPad = operatorInterface.pilot.getRawDPad();
             if (dPad == -1) {
                 dPadPressed = false;
             } else if (!dPadPressed) {
-                if (dPad == Buttons.DPAD_UP) {
+                if (dPad == 0) {
                     shooterSpeed += 0.1D;
-                } else if (dPad == Buttons.DPAD_DOWN) {
+                } else if (dPad == 180) {
                     shooterSpeed -= 0.1D;
                 }
                 dPadPressed = true;
             }
         }
     }
+
     private void checkValues() {
         // ensure shooter speed in range
         if (shooterSpeed > 1D) {
