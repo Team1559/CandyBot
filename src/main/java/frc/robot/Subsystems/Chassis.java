@@ -15,7 +15,7 @@ public class Chassis {
 
         WPI_TalonSRX leftMotor = new WPI_TalonSRX(Wiring.LEFT_DRIVE_MOTOR);
         WPI_TalonSRX rightMotor = new WPI_TalonSRX(Wiring.RIGHT_DRIVE_MOTOR);
-        
+
         rightMotor.setInverted(true);
         differential = new DifferentialDrive(leftMotor, rightMotor);
     }

@@ -98,9 +98,6 @@ public class Shooter {
         } else {
             shooterMoter.set(ControlMode.PercentOutput, 0D);
         }
-
-        System.out.println("Shooter speed:" + shooterSpeed);
-        System.out.println("Auger speed:  " + hopperEnabled);
     }
 
     private void setKill(boolean kill) {
