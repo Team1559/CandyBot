@@ -5,8 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.robot.subsystems.*;
-import frc.robot.components.*;
+import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Shooter;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -15,19 +16,32 @@ import frc.robot.components.*;
  * project.
  */
 public class Robot extends TimedRobot {
-    private OperatorInterface oi = new OperatorInterface();
-    private Vision vision;
-    private VisionData vData;
-    private VisionControl vc;
+    // controller
+    private OperatorInterface operatorInterface;
+    private Chassis chassis;
+    private Shooter shooter;
 
-    public Chassis chassis;
+    /**
+     * Default constructor for Robot
+     * <p>
+     * DO NOTHING HERE!!!
+     */
+    public Robot() {
+        super();
+    }
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
-    public void robotInit() {}
+    public void robotInit() {
+        // controller
+        operatorInterface = new OperatorInterface();
+
+        chassis = new Chassis(operatorInterface);
+        shooter = new Shooter(operatorInterface);
+    }
 
     /**
      * This function is called every robot packet, no matter the mode. Use this
@@ -38,7 +52,9 @@ public class Robot extends TimedRobot {
      * LiveWindow and SmartDashboard integrated updating.
      */
     @Override
-    public void robotPeriodic() {}
+    public void robotPeriodic() {
+        //
+    }
 
     /**
      * This autonomous (along with the chooser code above) shows how to select
@@ -53,65 +69,50 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        initialize();
+        //
     }
 
     /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
-        if (FeatureFlags.doVision && FeatureFlags.visionInitalized) {
-            vData = vision.getData();
-            vData.Print();
-        }
+        //
     }
 
     /** This function is called once when teleop is enabled. */
     @Override
     public void teleopInit() {
-        initialize();
+        //
     }
 
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        if (FeatureFlags.doVision && FeatureFlags.visionInitalized) {
-            vData = vision.getData();
-            vData.Print();
-        }
-        if (FeatureFlags.doChassis && FeatureFlags.chassisInitalized) {
-            chassis.main();
-        }
+        shooter.main();
 
+        //chassis.main();
     }
 
     /** This function is called once when the robot is disabled. */
     @Override
-    public void disabledInit() {}
+    public void disabledInit() {
+        //
+    }
 
     /** This function is called periodically when disabled. */
     @Override
-    public void disabledPeriodic() {}
+    public void disabledPeriodic() {
+        //
+    }
 
     /** This function is called once when test mode is enabled. */
     @Override
-    public void testInit() {}
+    public void testInit() {
+        //
+    }
 
     /** This function is called periodically during test mode. */
     @Override
-    public void testPeriodic() {}
-
-    public void initialize() {
-        if (FeatureFlags.doVision && !FeatureFlags.visionInitalized) {
-            vision = new Vision();
-            vision.VisionInit();
-            vc = new VisionControl(vision, vData, oi, chassis);
-            FeatureFlags.visionInitalized = true;
-        }
-        if (FeatureFlags.doChassis && !FeatureFlags.chassisInitalized) {
-            chassis = new Chassis();
-            FeatureFlags.chassisInitalized = true;
-        }
-
-
+    public void testPeriodic() {
+        //
     }
 }

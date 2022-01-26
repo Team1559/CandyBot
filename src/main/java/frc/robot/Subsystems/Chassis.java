@@ -20,7 +20,7 @@ public class Chassis {
     }
 
     public void main() {
-        differential.arcadeDrive(operatorInterface.pilotLeftStickY(),
-            operatorInterface.pilotRightStickX());
+        differential.arcadeDrive(operatorInterface.pilot.getLeftX(),
+            operatorInterface.pilot.getRightX());
     }
 }
