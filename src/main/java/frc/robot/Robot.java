@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
             FeatureFlags.visionInitalized = true;
         }
         if (FeatureFlags.doChassis && !FeatureFlags.chassisInitalized) {
-            chassis = new Chassis();
+            chassis = new Chassis(oi);
             FeatureFlags.chassisInitalized = true;
         }
 

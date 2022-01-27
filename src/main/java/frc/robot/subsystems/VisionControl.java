@@ -61,7 +61,7 @@ public class VisionControl {
                     // shooter.setAngle(desiredAngle);
                     // Shooter.setPower(desiredPower);
                     if (Math.abs(error) > chassisThreshold) {
-                        chassis.drive(hoop_forward_speed, hoop_sidespeed, hoop_rotation);
+                        chassis.drive(hoop_forward_speed, hoop_rotation);
                     }
                     else{
                         // shooter.shoot();
@@ -81,7 +81,7 @@ public class VisionControl {
             else if (oi.autoCollectButton()) { // go collect the nearest cargo
                 if(visionData.isBallValid()){
                     // shooter.gather();
-                    chassis.drive(ball_forward_speed, ball_sidespeed, ball_rotation);
+                    chassis.drive(ball_forward_speed, ball_rotation);
                 }
                 else{
                     System.out.println("Invalid data... aborting");
