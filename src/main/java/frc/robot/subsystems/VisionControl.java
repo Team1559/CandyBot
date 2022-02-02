@@ -7,13 +7,7 @@ public class VisionControl {
     private OperatorInterface oi;
     private Vision vision;
     private VisionData visionData;
-    private double hoopx = visionData.hx;
-    private double hoopy = visionData.hy;
-    private double hoopr = visionData.hr;
-    private double ballx = visionData.bx;
-    private double bally = visionData.by;
-    private double ballr = visionData.br;
-    private boolean wait = visionData.waitForOtherRobot;
+    private double balla = 0;
     // thresholds
     private double chassisThreshold = 10;
     private double shooterThreshold = 10;
@@ -54,34 +48,13 @@ public class VisionControl {
             update();
 
             visionData.Print();
-            if (oi.autoShootButton()) { // Move the chassis so it is alligned, aim the shooter, and fire the cargo
-                if(visionData.isHoopValid()){
-                    double error = 0;
-
-                    // shooter.setAngle(desiredAngle);
-                    // Shooter.setPower(desiredPower);
-                    if (Math.abs(error) > chassisThreshold) {
-                        chassis.drive(hoop_forward_speed, hoop_rotation);
-                    }
-                    else{
-                        // shooter.shoot();
-                        try{
-                            wait(1);
-                        }
-                        catch(InterruptedException e){
-                            continue;
-                        }
-                        break;
-                    }
-                }
-                else{
-                    System.out.println("Invalid data... aborting");
-                }
-            } 
-            else if (oi.autoCollectButton()) { // go collect the nearest cargo
+            if (oi.autoCollectButton()) { // go collect the nearest cargo
                 if(visionData.isBallValid()){
+                    System.out.println("in auto");
                     // shooter.gather();
-                    chassis.drive(ball_forward_speed, ball_rotation);
+                    calculateBallChassis();
+                    printData();
+                    chassis.drive(oi.pilot.getLeftX(), ball_rotation);
                 }
                 else{
                     System.out.println("Invalid data... aborting");
@@ -95,13 +68,8 @@ public class VisionControl {
 
     private void update() {
         visionData = vision.getData();
-        hoopx = visionData.hx;
-        hoopy = visionData.hy;
-        hoopr = visionData.hr;
-        ballx = visionData.bx;
-        bally = visionData.by;
-        ballr = visionData.br;
-        wait = visionData.waitForOtherRobot;
+        balla = visionData.bx;
+
     }
 
     private void calculateShooter() {
@@ -115,9 +83,13 @@ public class VisionControl {
         // hoop_sidespeed = __calculated_side_speed__;
         // hoop_rotation = __calculated_rotation__;
     }
-    private void calculateballChassis() {
+    private void calculateBallChassis() {
         // ball_forward_speed = __calculated_forward_speed__;
         // ball_sidespeed = __calculated_side_speed__;
-        // ball_rotation = __calculated_rotation__;
+        System.out.println(balla);
+        ball_rotation = 0.5 * (balla / 34);
+    }
+    private void printData(){
+        System.out.println(ball_rotation);
     }
 }

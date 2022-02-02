@@ -74,9 +74,9 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
+        System.out.println(oi.autoCollectButton());
         if (FeatureFlags.doVision && FeatureFlags.visionInitalized) {
-            vData = vision.getData();
-            vData.Print();
+            vc.main();
         }
         if (FeatureFlags.doChassis && FeatureFlags.chassisInitalized) {
             chassis.main();
@@ -101,16 +101,16 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {}
 
     public void initialize() {
-        if (FeatureFlags.doVision && !FeatureFlags.visionInitalized) {
-            vision = new Vision();
-            vision.VisionInit();
-            vc = new VisionControl(vision, vData, oi, chassis);
-            FeatureFlags.visionInitalized = true;
-        }
         if (FeatureFlags.doChassis && !FeatureFlags.chassisInitalized) {
             chassis = new Chassis(oi);
             FeatureFlags.chassisInitalized = true;
         }
+        if (FeatureFlags.doVision && !FeatureFlags.visionInitalized) {
+            vision = new Vision();
+            vc = new VisionControl(vision, vData, oi, chassis);
+            FeatureFlags.visionInitalized = true;
+        }
+        
 
 
     }

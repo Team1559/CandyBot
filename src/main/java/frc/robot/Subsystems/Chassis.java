@@ -20,7 +20,7 @@ public class Chassis {
     }
 
     public void main() {
-        drive(operatorInterface.pilot.getLeftX(),
+        drive(operatorInterface.pilot.getLeftY(),
         operatorInterface.pilot.getRightX());
     }
     public void drive(double x, double y){
