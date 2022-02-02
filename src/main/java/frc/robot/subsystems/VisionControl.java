@@ -90,6 +90,6 @@ public class VisionControl {
         ball_rotation = 0.5 * (balla / 34);
     }
     private void printData(){
-        System.out.println(ball_rotation);
+        System.out.println("rotation value is" + ball_rotation);
     }
 }
