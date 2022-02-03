@@ -9,7 +9,8 @@ public class VisionControl {
     private VisionData visionData;
     private double balla = 0;
     // thresholds
-    private double chassisThreshold = 10;
+    private double ballChassisThreshold = 2;
+    private double hoopChassisThreshold = 10;
     private double shooterThreshold = 10;
 
     // shooter variables
@@ -88,6 +89,9 @@ public class VisionControl {
         // ball_sidespeed = __calculated_side_speed__;
         System.out.println(balla);
         ball_rotation = 0.5 * (balla / 34);
+        if(Math.abs(ball_rotation) <= ballChassisThreshold){
+            ball_rotation = 0;
+        }
     }
     private void printData(){
         System.out.println("rotation value is" + ball_rotation);
