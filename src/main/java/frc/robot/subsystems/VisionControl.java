@@ -48,17 +48,19 @@ public class VisionControl {
         while (true) {
             update();
 
-            visionData.Print();
+            // visionData.Print();
+            System.out.println(balla);
             if (oi.autoCollectButton()) { // go collect the nearest cargo
                 if(visionData.isBallValid()){
                     System.out.println("in auto");
                     // shooter.gather();
                     calculateBallChassis();
                     printData();
-                    chassis.drive(oi.pilot.getLeftX(), ball_rotation);
+                    chassis.drive(oi.pilot.getLeftY(), ball_rotation);
                 }
                 else{
-                    System.out.println("Invalid data... aborting");
+                    System.out.println("Invalid data... remaining in manual control");
+                    chassis.drive(oi.pilot.getLeftY(), oi.pilot.getRightX());
                 }
             } 
             else {
@@ -87,7 +89,6 @@ public class VisionControl {
     private void calculateBallChassis() {
         // ball_forward_speed = __calculated_forward_speed__;
         // ball_sidespeed = __calculated_side_speed__;
-        System.out.println(balla);
         ball_rotation = 0.5 * (balla / 34);
         if(Math.abs(ball_rotation) <= ballChassisThreshold){
             ball_rotation = 0;
