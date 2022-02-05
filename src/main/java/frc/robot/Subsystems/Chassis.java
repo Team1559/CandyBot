@@ -26,6 +26,6 @@ public class Chassis {
         System.out.println("manual mode");
     }
     public void drive(double x, double y){
-        differential.arcadeDrive(x, y, false);
+        differential.arcadeDrive(x, y, true);
     }
 }
