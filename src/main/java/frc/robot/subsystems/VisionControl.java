@@ -26,7 +26,7 @@ public class VisionControl {
     private double ball_sidespeed = 0; // straife speed between 0-1
     private double ball_rotation = 0; // rotation speed between 0-1
     private Chassis chassis;
-    private final double kpasta = 0.03;
+    private final double kpasta = 0.3;
     private final double ki = 0;
     private final double kd = 0.001;
     
@@ -51,26 +51,34 @@ public class VisionControl {
         }
     }
 
+    private int invalid_ball_counter = 0;    
+    private final int invalid_ball_counter_threshold = 20;
     public void main() {
         if (true) {
             update();
 
             // visionData.Print();
             // System.out.println(balla);
+            boolean new_data = false;
             if (oi.autoCollectButton()) { // go collect the nearest cargo
                 if(visionData.isBallValid()){
+                    new_data = true;
+                    invalid_ball_counter = 0;
+                } else 
+                    invalid_ball_counter++;
+                System.out.println("Got data? " + new_data);
+                if(invalid_ball_counter < invalid_ball_counter_threshold){
                     System.out.println("in auto");
                     // shooter.gather();
                     calculateBallChassis();
                     printData();
-                    chassis.drive(oi.pilot.getLeftY(), ball_rotation);
+                    chassis.driveAuto(-oi.pilot.getLeftY(), ball_rotation);
                 }
                 else{
                     System.out.println("Invalid data... remaining in manual control");
-                    chassis.drive(oi.pilot.getLeftY(), oi.pilot.getRightX());
-
+                    chassis.main();
                 }
-            } 
+            }
             else {
                 chassis.main();
             }
@@ -97,7 +105,7 @@ public class VisionControl {
     private void calculateBallChassis() {
         // ball_forward_speed = __calculated_forward_speed__;
         // ball_sidespeed = __calculated_side_speed__;
-        ball_rotation = 0.75 * (balla / 34.0);
+        ball_rotation = 0.5 * (balla / 34.0);
     //    ball_rotation = -pid.calculate(balla, 0);
         if(Math.abs(balla) <= ballChassisThreshold){
             ball_rotation = 0;

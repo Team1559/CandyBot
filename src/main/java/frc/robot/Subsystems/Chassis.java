@@ -28,4 +28,7 @@ public class Chassis {
     public void drive(double x, double y){
         differential.arcadeDrive(x, y, true);
     }
+    public void driveAuto(double x, double y){
+        differential.arcadeDrive(x, y, false);
+    }
 }
