@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
         if (FeatureFlags.doVision && FeatureFlags.visionInitalized) {
             vc.main();
         }
-        if (FeatureFlags.doChassis && FeatureFlags.chassisInitalized) {
+        else if (FeatureFlags.doChassis && FeatureFlags.chassisInitalized) {
             chassis.main();
         }
 

@@ -2,8 +2,10 @@ package frc.robot.subsystems;
 
 import frc.robot.components.*;
 import frc.robot.*;
+import edu.wpi.first.math.controller.PIDController;
 
 public class VisionControl {
+    private PIDController pid;
     private OperatorInterface oi;
     private Vision vision;
     private VisionData visionData;
@@ -24,10 +26,15 @@ public class VisionControl {
     private double ball_sidespeed = 0; // straife speed between 0-1
     private double ball_rotation = 0; // rotation speed between 0-1
     private Chassis chassis;
+    private final double kpasta = 0.03;
+    private final double ki = 0;
+    private final double kd = 0.001;
+    
     // private Shooter shooter;
 
     public VisionControl(Vision vision, VisionData visionData, OperatorInterface oi, Chassis chassis) {// , Shooter shooter}) {
         this.oi = oi;
+        pid = new PIDController(kpasta, ki, kd);
         this.vision = vision;
         this.visionData = visionData;
         this.chassis = chassis;
@@ -45,11 +52,11 @@ public class VisionControl {
     }
 
     public void main() {
-        while (true) {
+        if (true) {
             update();
 
             // visionData.Print();
-            System.out.println(balla);
+            // System.out.println(balla);
             if (oi.autoCollectButton()) { // go collect the nearest cargo
                 if(visionData.isBallValid()){
                     System.out.println("in auto");
@@ -61,17 +68,18 @@ public class VisionControl {
                 else{
                     System.out.println("Invalid data... remaining in manual control");
                     chassis.drive(oi.pilot.getLeftY(), oi.pilot.getRightX());
+
                 }
             } 
             else {
-                break;
+                chassis.main();
             }
         }
     }
 
     private void update() {
         visionData = vision.getData();
-        balla = visionData.bx;
+        balla = visionData.br;
 
     }
 
@@ -89,12 +97,13 @@ public class VisionControl {
     private void calculateBallChassis() {
         // ball_forward_speed = __calculated_forward_speed__;
         // ball_sidespeed = __calculated_side_speed__;
-        ball_rotation = 0.5 * (balla / 34);
-        if(Math.abs(ball_rotation) <= ballChassisThreshold){
+        ball_rotation = 0.75 * (balla / 34.0);
+    //    ball_rotation = -pid.calculate(balla, 0);
+        if(Math.abs(balla) <= ballChassisThreshold){
             ball_rotation = 0;
         }
     }
     private void printData(){
-        System.out.println("rotation value is" + ball_rotation);
+        System.out.println("rotation value is " + ball_rotation);
     }
 }
