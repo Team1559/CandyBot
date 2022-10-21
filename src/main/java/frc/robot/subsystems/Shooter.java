@@ -15,8 +15,8 @@ public class Shooter {
     private double       shooterSpeed;
     private boolean      shooterEnabled;
 
-    private WPI_TalonSRX hopperMotor;
-    private boolean      hopperEnabled;
+    // private WPI_TalonSRX hopperMotor;
+    // private boolean      hopperEnabled;
 
     private boolean isRunning;
     private long    lastKillTime;
@@ -25,11 +25,13 @@ public class Shooter {
         operatorInterface = oi;
         dPadPressed = false;
 
-        shooterMoter = new WPI_TalonSRX(2);
+        shooterMoter = new WPI_TalonSRX(3);
         shooterEnabled = false;
         shooterSpeed = 0D;
 
-        hopperMotor = new WPI_TalonSRX(9);
+        shooterMoter.setInverted(true);
+
+        // hopperMotor = new WPI_TalonSRX(3);
 
         isRunning = true;
         lastKillTime = 0L;
@@ -47,11 +49,12 @@ public class Shooter {
         // enable toggles
         if (operatorInterface.pilot.getBButtonPressed()) {
             shooterEnabled = !shooterEnabled;
+            System.out.println("Motor is" + shooterEnabled);
         }
 
-        if (operatorInterface.pilot.getAButtonPressed()) {
-            hopperEnabled = !hopperEnabled;
-        }
+        // if (operatorInterface.pilot.getAButtonPressed()) {
+        //     hopperEnabled = !hopperEnabled;
+        // }
 
         // change shooter speed
         if (shooterEnabled) {
@@ -66,6 +69,7 @@ public class Shooter {
                 }
                 dPadPressed = true;
             }
+            System.out.println("Motor speed is " + shooterSpeed);
         }
     }
 
@@ -79,19 +83,20 @@ public class Shooter {
 
         // ensure hopper and shooter are running in sync
         if (!shooterEnabled) {
-            hopperEnabled = false;
-        } else if (hopperEnabled) {
-            shooterEnabled = true;
-        }
+            // hopperEnabled = false;
+        } 
+        // else if (hopperEnabled) {
+        //     shooterEnabled = true;
+        // }
     }
 
     private void setMotors() {
-        if (hopperEnabled) {
-            hopperMotor.set(ControlMode.PercentOutput, HOPPER_SPEED);
-            hopperEnabled = true;
-        } else {
-            hopperMotor.set(ControlMode.PercentOutput, 0D);
-        }
+        // if (hopperEnabled) {
+        //     hopperMotor.set(ControlMode.PercentOutput, HOPPER_SPEED);
+        //     hopperEnabled = true;
+        // } else {
+        //     hopperMotor.set(ControlMode.PercentOutput, 0D);
+        // }
 
         if (shooterEnabled) {
             shooterMoter.set(ControlMode.PercentOutput, shooterSpeed);

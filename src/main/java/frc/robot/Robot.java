@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
         oi = new OperatorInterface();
 
         chassis = new Chassis(oi);
-        // shooter = new Shooter(oi);
+        shooter = new Shooter(oi);
     }
 
     /**
@@ -76,7 +76,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        // shooter.main();
+        shooter.main();
 
         chassis.main();
     }
